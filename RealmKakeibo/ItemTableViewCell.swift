@@ -14,6 +14,7 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet var markImageView: UIImageView!
 
     override func awakeFromNib() {
+    
         super.awakeFromNib()
         // Initialization code
     }

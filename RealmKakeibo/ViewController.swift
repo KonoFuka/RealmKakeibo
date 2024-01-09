@@ -20,14 +20,28 @@ class ViewController: UIViewController,UITableViewDataSource {
         // Do any additional setup after loading the view.
         tableview.dataSource = self
         tableview.register(UINib(nibName: "ItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ItemCell")
+        items = readItems()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        items = readItems()
+        tableview.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section:Int) -> Int{
-        
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemTableViewCell
+        let item: ShoppingItem = items[indexPath.row]
+        cell.setCell(title: item.title, price: item.price, isMarked: item.isMarked)
+        
+        return cell
+    }
+    
+    func readItems() -> [ShoppingItem]{
+        return Array(realm.objects(ShoppingItem.self))
     }
     
 
